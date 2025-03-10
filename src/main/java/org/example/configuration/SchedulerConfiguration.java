@@ -14,4 +14,10 @@ public class SchedulerConfiguration {
     public Scheduler commonScheduler() {
         return Schedulers.fromExecutorService(Executors.newVirtualThreadPerTaskExecutor(), "common-executor");
     }
+
+    @Bean
+    public Scheduler repositoryScheduler() {
+        return Schedulers.fromExecutorService(
+                Executors.newScheduledThreadPool(10, Executors.defaultThreadFactory()), "repository-executor");
+    }
 }
