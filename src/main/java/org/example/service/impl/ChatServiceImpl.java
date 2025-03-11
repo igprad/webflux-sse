@@ -2,7 +2,6 @@
 package org.example.service.impl;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -49,9 +48,6 @@ public class ChatServiceImpl implements ChatService {
         chatEntity.setId(UUID.randomUUID());
         chatEntity.setMessage(chatRequest.message());
         chatEntity.setUsername(chatRequest.username());
-        long epochMilli = Instant.now().toEpochMilli();
-        chatEntity.setCreatedOn(epochMilli);
-        chatEntity.setModifiedOn(epochMilli);
         chatEntity.setShown(false);
         return chatRepository
                 .insert(chatEntity)

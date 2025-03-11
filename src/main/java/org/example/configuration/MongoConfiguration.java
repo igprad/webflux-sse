@@ -1,17 +1,20 @@
 /* igprad - (C) 2025 */
 package org.example.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.config.EnableReactiveMongoAuditing;
 
 @Configuration
-@EnableMongoAuditing
+@EnableReactiveMongoAuditing
 public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 
-    // todo : change this later using proper configuration
+    @Value("${spring.data.mongodb.database:test}")
+    private String database;
+
     @Override
-    protected String getDatabaseName() {
-        return "test";
+    public String getDatabaseName() {
+        return this.database;
     }
 }

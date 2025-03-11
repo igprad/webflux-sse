@@ -1,0 +1,26 @@
+@startuml
+
+participant Client as Foo
+boundary    Endpoint    as Foo1
+control     Service     as Foo2
+database    Database    as Foo3
+
+group Continue Listen SSE Endpoint
+    Foo -> Foo1 : Listen / subscribe to SSE chat endpoint
+    Foo1 -> Foo2 : Stream chat events
+    note left: curl http://localhost:8080/chat
+    Foo2 -> Foo3 : Stream chat events
+    Foo3 --> Foo2 : Stream chat events
+    Foo2 --> Foo1 : Stream chat events
+    Foo1 --> Foo : Stream chat events
+    note right: All callback events keep being listened until service / manual terminated.\nNew message from below (Chat diagram) will directly publish if there's any.
+end
+
+group Chat
+    Foo -> Foo1 : Insert or post chat message
+    note right: curl -X POST -H "Content-Type: application/json" -d '{"username": "test", "message": "test"}' http://localhost:8080/chat
+    Foo1 -> Foo2 : insert new message
+    Foo2 -> Foo3 : save the message
+end
+
+@enduml

@@ -25,7 +25,7 @@ public class ChatController {
     private final Scheduler commonScheduler;
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ChatResponse> streamChats() {
+    public Flux<ChatResponse> subscribeChats() {
         return this.chatService
                 .streamChat()
                 .map(ChatResponse::fromService)
