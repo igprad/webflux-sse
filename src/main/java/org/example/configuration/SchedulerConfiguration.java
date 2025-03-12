@@ -20,4 +20,9 @@ public class SchedulerConfiguration {
         return Schedulers.fromExecutorService(
                 Executors.newScheduledThreadPool(10, Executors.defaultThreadFactory()), "repository-executor");
     }
+
+    @Bean
+    public Scheduler autoScheduler() {
+        return Schedulers.fromExecutorService(Executors.newSingleThreadScheduledExecutor());
+    }
 }

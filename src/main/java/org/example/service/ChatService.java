@@ -11,4 +11,6 @@ public interface ChatService {
     Flux<Chat> streamChat();
 
     Mono<Boolean> chat(ChatRequest chatRequest);
+
+    Mono<Void> archiveChat(Long timestamp);
 }
