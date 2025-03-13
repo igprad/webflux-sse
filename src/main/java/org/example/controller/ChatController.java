@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
 
 @Slf4j
 @Validated
@@ -22,19 +21,14 @@ import reactor.core.scheduler.Scheduler;
 public class ChatController {
 
     private final ChatService chatService;
-    private final Scheduler commonScheduler;
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ChatResponse> subscribeChats() {
-        return this.chatService
-                .streamChat()
-                .map(ChatResponse::fromService)
-                .subscribeOn(commonScheduler)
-                .publishOn(commonScheduler);
+        return this.chatService.streamChat().map(ChatResponse::fromService);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Boolean> chat(@RequestBody @Valid ChatRequest chatRequest) {
-        return chatService.chat(chatRequest).subscribeOn(commonScheduler).publishOn(commonScheduler);
+        return chatService.chat(chatRequest);
     }
 }
