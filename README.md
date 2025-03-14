@@ -11,7 +11,7 @@ Prepare your IDE / Text Editor, Java, Gradle, Mongodb
 2) Listen the chat events `curl http://localhost:8080/chat`
 3) Drop your chat e.g. `curl -X POST -H "Content-Type: application/json" -d '{"username": "zkcus", "message": "feelsoldman"}' http://localhost:8080/chat`
 4) Boom, supposed to be not an error. ;)
-!![Example GIF](/src/main/resources/example.gif)
+!![Example GIF](/src/main/resources/demo.gif)
 
 ### What to be improved?
 Every aspect of these codes. 
